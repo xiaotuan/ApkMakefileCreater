@@ -89,17 +89,12 @@ Public Class createrForm
                 mkWriter.WriteLine("LOCAL_MODULE_TAGS := optional")
                 mkWriter.WriteLine("LOCAL_MODULE_SUFFIX := $(COMMON_ANDROID_PACKAGE_SUFFIX)")
                 If installPath.Equals("system/priv-app") Then
-                    mkWriter.WriteLine("LOCAL_MODULE_PATH := $(TARGET_OUT)/system/priv-app")
-                    'mkWriter.WriteLine("LOCAL_PRIVILEGED_MODULE := true")
+                    mkWriter.WriteLine("LOCAL_PRIVILEGED_MODULE := true")
                 ElseIf installPath.Equals("product/app") Then
-                    mkWriter.WriteLine("LOCAL_MODULE_PATH := $(TARGET_OUT)/product/app")
-                    'mkWriter.WriteLine("LOCAL_PRODUCT_MODULE := true")
+                    mkWriter.WriteLine("LOCAL_PRODUCT_MODULE := true")
                 ElseIf installPath.Equals("product/priv-app") Then
-                    mkWriter.WriteLine("LOCAL_MODULE_PATH := $(TARGET_OUT)/product/priv-app")
-                    'mkWriter.WriteLine("LOCAL_PRIVILEGED_MODULE := true")
-                    'mkWriter.WriteLine("LOCAL_PRODUCT_MODULE := true")
-                Else
-                    mkWriter.WriteLine("LOCAL_MODULE_PATH := $(TARGET_OUT)/system/app")
+                    mkWriter.WriteLine("LOCAL_PRIVILEGED_MODULE := true")
+                    mkWriter.WriteLine("LOCAL_PRODUCT_MODULE := true")
                 End If
                 If rbSystemSignature.Checked Then
                     mkWriter.WriteLine("LOCAL_CERTIFICATE := platform")

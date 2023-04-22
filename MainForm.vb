@@ -9,7 +9,12 @@ Public Class createrForm
     Private Sub btnSelectApkFile_Click(sender As Object, e As EventArgs) Handles btnSelectApkFile.Click
         If ofdSelectFile.ShowDialog <> Windows.Forms.DialogResult.Cancel Then
             tbApkFilePath.Text = ofdSelectFile.FileName
-            tbAppName.Text = Path.GetFileNameWithoutExtension(ofdSelectFile.FileName)
+            Dim fileName = Path.GetFileNameWithoutExtension(ofdSelectFile.FileName)
+            If fileName.Contains(" ") Then
+                fileName = fileName.Replace(" ", "_")
+            End If
+            tbAppName.Text = fileName
+            UpdateFormInfos()
         End If
     End Sub
 
@@ -32,8 +37,9 @@ Public Class createrForm
                 End If
                 System.IO.Directory.CreateDirectory(dirPath)
 
+
                 ' 拷贝 APK 文件
-                System.IO.File.Copy(apkFilePath, dirPath + "\" + Path.GetFileName(apkFilePath))
+                System.IO.File.Copy(apkFilePath, dirPath + "\" + Path.GetFileName(apkFilePath).Replace(" ", "_"))
 
                 Dim libDirName = "arm64-v8a"
                 If rbArmeabi.Checked Then
@@ -78,24 +84,39 @@ Public Class createrForm
                 mkWriter.WriteLine("LOCAL_PATH := $(call my-dir)")
                 mkWriter.WriteLine("")
                 mkWriter.WriteLine("include $(CLEAR_VARS)")
-                mkWriter.WriteLine("LOCAL_MODULE := " & appName)
+                mkWriter.WriteLine("LOCAL_MODULE := " & appName.Replace(" ", "_"))
                 mkWriter.WriteLine("LOCAL_MODULE_CLASS := APPS")
                 mkWriter.WriteLine("LOCAL_MODULE_TAGS := optional")
                 mkWriter.WriteLine("LOCAL_MODULE_SUFFIX := $(COMMON_ANDROID_PACKAGE_SUFFIX)")
                 If installPath.Equals("system/priv-app") Then
-                    mkWriter.WriteLine("LOCAL_PRIVILEGED_MODULE := true")
+                    mkWriter.WriteLine("LOCAL_MODULE_PATH := $(TARGET_OUT)/system/priv-app")
+                    'mkWriter.WriteLine("LOCAL_PRIVILEGED_MODULE := true")
                 ElseIf installPath.Equals("product/app") Then
-                    mkWriter.WriteLine("LOCAL_PRODUCT_MODULE := true")
+                    mkWriter.WriteLine("LOCAL_MODULE_PATH := $(TARGET_OUT)/product/app")
+                    'mkWriter.WriteLine("LOCAL_PRODUCT_MODULE := true")
                 ElseIf installPath.Equals("product/priv-app") Then
-                    mkWriter.WriteLine("LOCAL_PRIVILEGED_MODULE := true")
-                    mkWriter.WriteLine("LOCAL_PRODUCT_MODULE := true")
+                    mkWriter.WriteLine("LOCAL_MODULE_PATH := $(TARGET_OUT)/product/priv-app")
+                    'mkWriter.WriteLine("LOCAL_PRIVILEGED_MODULE := true")
+                    'mkWriter.WriteLine("LOCAL_PRODUCT_MODULE := true")
+                Else
+                    mkWriter.WriteLine("LOCAL_MODULE_PATH := $(TARGET_OUT)/system/app")
                 End If
                 If rbSystemSignature.Checked Then
                     mkWriter.WriteLine("LOCAL_CERTIFICATE := platform")
                 ElseIf rbNotSystemSignature.Checked Then
                     mkWriter.WriteLine("LOCAL_CERTIFICATE := PRESIGNED")
                 End If
-                mkWriter.WriteLine("LOCAL_SRC_FILES := " & Path.GetFileName(apkFilePath))
+                mkWriter.WriteLine("LOCAL_REPLACE_PREBUILT_APK_INSTALLED := $(LOCAL_PATH)/" & Path.GetFileName(apkFilePath).Replace(" ", "_"))
+                If rbCreateOdex.Checked Then
+                    mkWriter.WriteLine("LOCAL_DEX_PREOPT := true")
+                Else
+                    mkWriter.WriteLine("LOCAL_DEX_PREOPT := false")
+                End If
+                If libDirName.Equals("arm64-v8a") Then
+                    mkWriter.WriteLine("LOCAL_MULTILIB := 64")
+                Else
+                    mkWriter.WriteLine("LOCAL_MULTILIB := 32")
+                End If
                 If Not rbAllow.Checked Then
                     mkWriter.WriteLine("")
                     mkWriter.WriteLine("LOCAL_ENFORCE_USES_LIBRARIES := false")
@@ -119,6 +140,7 @@ Public Class createrForm
                 End If
                 mkWriter.WriteLine("")
                 mkWriter.WriteLine("include $(BUILD_PREBUILT)")
+                mkWriter.WriteLine("include $(call all-makefiles-under,$(LOCAL_PATH))")
                 mkWriter.Close()
                 MessageBox.Show("生成成功。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information)
             Else
@@ -127,5 +149,69 @@ Public Class createrForm
         Else
             MessageBox.Show("请先选择 Android 应用文件。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
         End If
+    End Sub
+
+    Private Sub tbApkFilePath_TextChanged(sender As Object, e As EventArgs) Handles tbApkFilePath.TextChanged
+        Dim filePath = tbApkFilePath.Text
+        If Path.GetExtension(filePath).ToLower.Equals(".apk") And File.Exists(filePath) Then
+            UpdateFormInfos()
+        End If
+    End Sub
+
+    Private Sub UpdateFormInfos()
+        Dim filePath = tbApkFilePath.Text
+        Dim hasArm64v8a As Boolean = False
+        Dim hasArmeabiv7a As Boolean = False
+        Dim hasArmeabi As Boolean = False
+        Using archive As ZipArchive = ZipFile.OpenRead(tbApkFilePath.Text)
+            For Each entry As ZipArchiveEntry In archive.Entries
+                Debug.WriteLine("UpdateFormInfos=>Entry name: " & entry.FullName)
+                If Not hasArm64v8a And entry.FullName.StartsWith("lib/arm64-v8a/") Then
+                    hasArm64v8a = True
+                ElseIf Not hasArmeabiv7a And entry.FullName.StartsWith("lib/armeabi-v7a/") Then
+                    hasArmeabiv7a = True
+                ElseIf Not hasArmeabi And entry.FullName.StartsWith("lib/armeabi/") Then
+                    hasArmeabi = True
+                End If
+            Next
+        End Using
+        If Not hasArmeabiv7a And Not hasArmeabi And Not hasArm64v8a Then
+            lbSystemType.Enabled = False
+            rbArm64V8a.Enabled = False
+            rbArmeabi.Enabled = False
+            rbArmeabiV7a.Enabled = False
+        Else
+            lbSystemType.Enabled = True
+            If hasArm64v8a Then
+                rbArm64V8a.Enabled = True
+                rbArm64V8a.Checked = True
+            Else
+                rbArm64V8a.Enabled = False
+            End If
+            If hasArmeabiv7a Then
+                rbArmeabiV7a.Enabled = True
+                If Not hasArm64v8a Then
+                    rbArmeabiV7a.Checked = True
+                End If
+            Else
+                rbArmeabiV7a.Enabled = False
+            End If
+            If hasArmeabi Then
+                rbArmeabi.Enabled = True
+                If Not hasArm64v8a And Not hasArmeabiv7a Then
+                    rbArmeabi.Checked = True
+                End If
+            Else
+                rbArmeabi.Enabled = False
+            End If
+        End If
+    End Sub
+
+    Private Sub tbAppName_TextChanged(sender As Object, e As EventArgs) Handles tbAppName.TextChanged
+        Dim text As String = tbAppName.Text
+        If text.Contains(" ") Then
+            text = text.Replace(" ", "_")
+        End If
+        tbAppName.Text = text
     End Sub
 End Class

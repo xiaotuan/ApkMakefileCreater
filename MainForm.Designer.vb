@@ -30,27 +30,33 @@ Partial Class createrForm
         Me.Label1 = New System.Windows.Forms.Label()
         Me.rbSystemSignature = New System.Windows.Forms.RadioButton()
         Me.FlowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel()
-        Me.Splitter1 = New System.Windows.Forms.Splitter()
+        Me.systemSignalSplitter1 = New System.Windows.Forms.Splitter()
         Me.rbNotSystemSignature = New System.Windows.Forms.RadioButton()
         Me.lbSystemType = New System.Windows.Forms.Label()
         Me.FlowLayoutPanel2 = New System.Windows.Forms.FlowLayoutPanel()
         Me.rbArm64V8a = New System.Windows.Forms.RadioButton()
-        Me.Splitter2 = New System.Windows.Forms.Splitter()
+        Me.systemTypeSplitter1 = New System.Windows.Forms.Splitter()
         Me.rbArmeabi = New System.Windows.Forms.RadioButton()
-        Me.Splitter4 = New System.Windows.Forms.Splitter()
+        Me.systemTypeSplitter2 = New System.Windows.Forms.Splitter()
         Me.rbArmeabiV7a = New System.Windows.Forms.RadioButton()
         Me.lbDependsCheck = New System.Windows.Forms.Label()
         Me.FlowLayoutPanel3 = New System.Windows.Forms.FlowLayoutPanel()
         Me.rbAllow = New System.Windows.Forms.RadioButton()
-        Me.Splitter3 = New System.Windows.Forms.Splitter()
+        Me.dependenceSplitter = New System.Windows.Forms.Splitter()
         Me.rbDisallow = New System.Windows.Forms.RadioButton()
         Me.btStartCreate = New System.Windows.Forms.Button()
         Me.ofdSelectFile = New System.Windows.Forms.OpenFileDialog()
         Me.lbName = New System.Windows.Forms.Label()
         Me.tbAppName = New System.Windows.Forms.TextBox()
+        Me.FlowLayoutPanel4 = New System.Windows.Forms.FlowLayoutPanel()
+        Me.rbCreateOdex = New System.Windows.Forms.RadioButton()
+        Me.odexSplitter = New System.Windows.Forms.Splitter()
+        Me.rbNotCreateOdex = New System.Windows.Forms.RadioButton()
+        Me.lbOdex = New System.Windows.Forms.Label()
         Me.FlowLayoutPanel1.SuspendLayout()
         Me.FlowLayoutPanel2.SuspendLayout()
         Me.FlowLayoutPanel3.SuspendLayout()
+        Me.FlowLayoutPanel4.SuspendLayout()
         Me.SuspendLayout()
         '
         'lbApkFilePath
@@ -80,6 +86,9 @@ Partial Class createrForm
         '
         'lbBuiltInPath
         '
+        Me.lbBuiltInPath.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lbBuiltInPath.AutoSize = True
         Me.lbBuiltInPath.Location = New System.Drawing.Point(12, 109)
         Me.lbBuiltInPath.Name = "lbBuiltInPath"
@@ -89,6 +98,9 @@ Partial Class createrForm
         '
         'cbBuildInPath
         '
+        Me.cbBuildInPath.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cbBuildInPath.FormattingEnabled = True
         Me.cbBuildInPath.Items.AddRange(New Object() {"system/priv-app", "system/app", "product/app", "product/priv-app"})
         Me.cbBuildInPath.Location = New System.Drawing.Point(113, 106)
@@ -99,6 +111,9 @@ Partial Class createrForm
         '
         'Label1
         '
+        Me.Label1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label1.AutoSize = True
         Me.Label1.Location = New System.Drawing.Point(12, 199)
         Me.Label1.Name = "Label1"
@@ -118,21 +133,24 @@ Partial Class createrForm
         '
         'FlowLayoutPanel1
         '
+        Me.FlowLayoutPanel1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.FlowLayoutPanel1.Controls.Add(Me.rbSystemSignature)
-        Me.FlowLayoutPanel1.Controls.Add(Me.Splitter1)
+        Me.FlowLayoutPanel1.Controls.Add(Me.systemSignalSplitter1)
         Me.FlowLayoutPanel1.Controls.Add(Me.rbNotSystemSignature)
         Me.FlowLayoutPanel1.Location = New System.Drawing.Point(113, 194)
         Me.FlowLayoutPanel1.Name = "FlowLayoutPanel1"
         Me.FlowLayoutPanel1.Size = New System.Drawing.Size(542, 27)
         Me.FlowLayoutPanel1.TabIndex = 7
         '
-        'Splitter1
+        'systemSignalSplitter1
         '
-        Me.Splitter1.Location = New System.Drawing.Point(83, 3)
-        Me.Splitter1.Name = "Splitter1"
-        Me.Splitter1.Size = New System.Drawing.Size(47, 21)
-        Me.Splitter1.TabIndex = 9
-        Me.Splitter1.TabStop = False
+        Me.systemSignalSplitter1.Location = New System.Drawing.Point(83, 3)
+        Me.systemSignalSplitter1.Name = "systemSignalSplitter1"
+        Me.systemSignalSplitter1.Size = New System.Drawing.Size(47, 21)
+        Me.systemSignalSplitter1.TabIndex = 9
+        Me.systemSignalSplitter1.TabStop = False
         '
         'rbNotSystemSignature
         '
@@ -148,8 +166,11 @@ Partial Class createrForm
         '
         'lbSystemType
         '
+        Me.lbSystemType.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lbSystemType.AutoSize = True
-        Me.lbSystemType.Location = New System.Drawing.Point(12, 152)
+        Me.lbSystemType.Location = New System.Drawing.Point(12, 155)
         Me.lbSystemType.Name = "lbSystemType"
         Me.lbSystemType.Size = New System.Drawing.Size(68, 17)
         Me.lbSystemType.TabIndex = 8
@@ -157,10 +178,13 @@ Partial Class createrForm
         '
         'FlowLayoutPanel2
         '
+        Me.FlowLayoutPanel2.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.FlowLayoutPanel2.Controls.Add(Me.rbArm64V8a)
-        Me.FlowLayoutPanel2.Controls.Add(Me.Splitter2)
+        Me.FlowLayoutPanel2.Controls.Add(Me.systemTypeSplitter1)
         Me.FlowLayoutPanel2.Controls.Add(Me.rbArmeabi)
-        Me.FlowLayoutPanel2.Controls.Add(Me.Splitter4)
+        Me.FlowLayoutPanel2.Controls.Add(Me.systemTypeSplitter2)
         Me.FlowLayoutPanel2.Controls.Add(Me.rbArmeabiV7a)
         Me.FlowLayoutPanel2.Location = New System.Drawing.Point(114, 148)
         Me.FlowLayoutPanel2.Name = "FlowLayoutPanel2"
@@ -179,13 +203,13 @@ Partial Class createrForm
         Me.rbArm64V8a.Text = "arm64-v8a"
         Me.rbArm64V8a.UseVisualStyleBackColor = True
         '
-        'Splitter2
+        'systemTypeSplitter1
         '
-        Me.Splitter2.Location = New System.Drawing.Point(97, 3)
-        Me.Splitter2.Name = "Splitter2"
-        Me.Splitter2.Size = New System.Drawing.Size(34, 21)
-        Me.Splitter2.TabIndex = 1
-        Me.Splitter2.TabStop = False
+        Me.systemTypeSplitter1.Location = New System.Drawing.Point(97, 3)
+        Me.systemTypeSplitter1.Name = "systemTypeSplitter1"
+        Me.systemTypeSplitter1.Size = New System.Drawing.Size(34, 21)
+        Me.systemTypeSplitter1.TabIndex = 1
+        Me.systemTypeSplitter1.TabStop = False
         '
         'rbArmeabi
         '
@@ -197,13 +221,13 @@ Partial Class createrForm
         Me.rbArmeabi.Text = "armeabi"
         Me.rbArmeabi.UseVisualStyleBackColor = True
         '
-        'Splitter4
+        'systemTypeSplitter2
         '
-        Me.Splitter4.Location = New System.Drawing.Point(217, 3)
-        Me.Splitter4.Name = "Splitter4"
-        Me.Splitter4.Size = New System.Drawing.Size(33, 21)
-        Me.Splitter4.TabIndex = 3
-        Me.Splitter4.TabStop = False
+        Me.systemTypeSplitter2.Location = New System.Drawing.Point(217, 3)
+        Me.systemTypeSplitter2.Name = "systemTypeSplitter2"
+        Me.systemTypeSplitter2.Size = New System.Drawing.Size(33, 21)
+        Me.systemTypeSplitter2.TabIndex = 3
+        Me.systemTypeSplitter2.TabStop = False
         '
         'rbArmeabiV7a
         '
@@ -217,6 +241,9 @@ Partial Class createrForm
         '
         'lbDependsCheck
         '
+        Me.lbDependsCheck.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lbDependsCheck.AutoSize = True
         Me.lbDependsCheck.Location = New System.Drawing.Point(12, 246)
         Me.lbDependsCheck.Name = "lbDependsCheck"
@@ -226,8 +253,11 @@ Partial Class createrForm
         '
         'FlowLayoutPanel3
         '
+        Me.FlowLayoutPanel3.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.FlowLayoutPanel3.Controls.Add(Me.rbAllow)
-        Me.FlowLayoutPanel3.Controls.Add(Me.Splitter3)
+        Me.FlowLayoutPanel3.Controls.Add(Me.dependenceSplitter)
         Me.FlowLayoutPanel3.Controls.Add(Me.rbDisallow)
         Me.FlowLayoutPanel3.Location = New System.Drawing.Point(113, 242)
         Me.FlowLayoutPanel3.Name = "FlowLayoutPanel3"
@@ -246,13 +276,13 @@ Partial Class createrForm
         Me.rbAllow.Text = "允许"
         Me.rbAllow.UseVisualStyleBackColor = True
         '
-        'Splitter3
+        'dependenceSplitter
         '
-        Me.Splitter3.Location = New System.Drawing.Point(59, 3)
-        Me.Splitter3.Name = "Splitter3"
-        Me.Splitter3.Size = New System.Drawing.Size(68, 21)
-        Me.Splitter3.TabIndex = 1
-        Me.Splitter3.TabStop = False
+        Me.dependenceSplitter.Location = New System.Drawing.Point(59, 3)
+        Me.dependenceSplitter.Name = "dependenceSplitter"
+        Me.dependenceSplitter.Size = New System.Drawing.Size(68, 21)
+        Me.dependenceSplitter.TabIndex = 1
+        Me.dependenceSplitter.TabStop = False
         '
         'rbDisallow
         '
@@ -266,7 +296,7 @@ Partial Class createrForm
         '
         'btStartCreate
         '
-        Me.btStartCreate.Location = New System.Drawing.Point(253, 309)
+        Me.btStartCreate.Location = New System.Drawing.Point(251, 335)
         Me.btStartCreate.Name = "btStartCreate"
         Me.btStartCreate.Size = New System.Drawing.Size(157, 40)
         Me.btStartCreate.TabIndex = 11
@@ -294,14 +324,71 @@ Partial Class createrForm
         Me.tbAppName.Size = New System.Drawing.Size(542, 23)
         Me.tbAppName.TabIndex = 13
         '
+        'FlowLayoutPanel4
+        '
+        Me.FlowLayoutPanel4.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.FlowLayoutPanel4.Controls.Add(Me.rbCreateOdex)
+        Me.FlowLayoutPanel4.Controls.Add(Me.odexSplitter)
+        Me.FlowLayoutPanel4.Controls.Add(Me.rbNotCreateOdex)
+        Me.FlowLayoutPanel4.Location = New System.Drawing.Point(113, 287)
+        Me.FlowLayoutPanel4.Name = "FlowLayoutPanel4"
+        Me.FlowLayoutPanel4.Size = New System.Drawing.Size(542, 27)
+        Me.FlowLayoutPanel4.TabIndex = 9
+        '
+        'rbCreateOdex
+        '
+        Me.rbCreateOdex.AutoSize = True
+        Me.rbCreateOdex.Location = New System.Drawing.Point(3, 3)
+        Me.rbCreateOdex.Name = "rbCreateOdex"
+        Me.rbCreateOdex.Size = New System.Drawing.Size(50, 21)
+        Me.rbCreateOdex.TabIndex = 0
+        Me.rbCreateOdex.Text = "生成"
+        Me.rbCreateOdex.UseVisualStyleBackColor = True
+        '
+        'odexSplitter
+        '
+        Me.odexSplitter.Location = New System.Drawing.Point(59, 3)
+        Me.odexSplitter.Name = "odexSplitter"
+        Me.odexSplitter.Size = New System.Drawing.Size(68, 21)
+        Me.odexSplitter.TabIndex = 1
+        Me.odexSplitter.TabStop = False
+        '
+        'rbNotCreateOdex
+        '
+        Me.rbNotCreateOdex.AutoSize = True
+        Me.rbNotCreateOdex.Checked = True
+        Me.rbNotCreateOdex.Location = New System.Drawing.Point(133, 3)
+        Me.rbNotCreateOdex.Name = "rbNotCreateOdex"
+        Me.rbNotCreateOdex.Size = New System.Drawing.Size(62, 21)
+        Me.rbNotCreateOdex.TabIndex = 2
+        Me.rbNotCreateOdex.TabStop = True
+        Me.rbNotCreateOdex.Text = "不生成"
+        Me.rbNotCreateOdex.UseVisualStyleBackColor = True
+        '
+        'lbOdex
+        '
+        Me.lbOdex.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lbOdex.AutoSize = True
+        Me.lbOdex.Location = New System.Drawing.Point(12, 291)
+        Me.lbOdex.Name = "lbOdex"
+        Me.lbOdex.Size = New System.Drawing.Size(82, 17)
+        Me.lbOdex.TabIndex = 10
+        Me.lbOdex.Text = "生成 ODEX："
+        '
         'createrForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 17.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(667, 387)
+        Me.ClientSize = New System.Drawing.Size(667, 395)
         Me.Controls.Add(Me.tbAppName)
         Me.Controls.Add(Me.lbName)
         Me.Controls.Add(Me.btStartCreate)
+        Me.Controls.Add(Me.lbOdex)
+        Me.Controls.Add(Me.FlowLayoutPanel4)
         Me.Controls.Add(Me.lbDependsCheck)
         Me.Controls.Add(Me.FlowLayoutPanel3)
         Me.Controls.Add(Me.FlowLayoutPanel2)
@@ -322,6 +409,8 @@ Partial Class createrForm
         Me.FlowLayoutPanel2.PerformLayout()
         Me.FlowLayoutPanel3.ResumeLayout(False)
         Me.FlowLayoutPanel3.PerformLayout()
+        Me.FlowLayoutPanel4.ResumeLayout(False)
+        Me.FlowLayoutPanel4.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -335,22 +424,27 @@ Partial Class createrForm
     Friend WithEvents Label1 As Label
     Friend WithEvents rbSystemSignature As RadioButton
     Friend WithEvents FlowLayoutPanel1 As FlowLayoutPanel
-    Friend WithEvents Splitter1 As Splitter
+    Friend WithEvents systemSignalSplitter1 As Splitter
     Friend WithEvents rbNotSystemSignature As RadioButton
     Friend WithEvents lbSystemType As Label
     Friend WithEvents FlowLayoutPanel2 As FlowLayoutPanel
     Friend WithEvents rbArm64V8a As RadioButton
-    Friend WithEvents Splitter2 As Splitter
+    Friend WithEvents systemTypeSplitter1 As Splitter
     Friend WithEvents rbArmeabi As RadioButton
     Friend WithEvents lbDependsCheck As Label
     Friend WithEvents FlowLayoutPanel3 As FlowLayoutPanel
     Friend WithEvents rbAllow As RadioButton
-    Friend WithEvents Splitter3 As Splitter
+    Friend WithEvents dependenceSplitter As Splitter
     Friend WithEvents rbDisallow As RadioButton
     Friend WithEvents btStartCreate As Button
     Friend WithEvents ofdSelectFile As OpenFileDialog
     Friend WithEvents lbName As Label
     Friend WithEvents tbAppName As TextBox
-    Friend WithEvents Splitter4 As Splitter
+    Friend WithEvents systemTypeSplitter2 As Splitter
     Friend WithEvents rbArmeabiV7a As RadioButton
+    Friend WithEvents FlowLayoutPanel4 As FlowLayoutPanel
+    Friend WithEvents rbCreateOdex As RadioButton
+    Friend WithEvents odexSplitter As Splitter
+    Friend WithEvents rbNotCreateOdex As RadioButton
+    Friend WithEvents lbOdex As Label
 End Class

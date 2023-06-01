@@ -8,7 +8,12 @@
     <MyType>WindowsForms</MyType>
     <FileVersion>1.2.2023.0422</FileVersion>
     <AssemblyVersion>1.2.2023.0422</AssemblyVersion>
+    <ApplicationIcon>config.makefile.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="config.makefile.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <Import Include="System.Data" />
